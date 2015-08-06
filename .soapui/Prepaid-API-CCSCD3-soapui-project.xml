@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="Prepaid API - CCSCD3" resourceRoot="" soapui-version="5.2.0" abortOnError="false" runType="SEQUENTIAL" id="93da75be-3fea-467c-97a9-7ff987b37ccb" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="CCSCD3Soap11Binding" type="wsdl" bindingName="{http://xmlns.oracle.com/communications/ncc/2009/05/15/pi}CCSCD3Soap11Binding" soapVersion="1_1" anonymous="optional" definition="file:/c:/WorldOfJava/wsB2S/Parent/prepaid-api/src/main/resources/wsdl/CCSCD3.wsdl" id="691d2b62-0aec-45f3-9254-822bba5adcc5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/c:/WorldOfJava/wsB2S/Parent/prepaid-api/src/main/resources/wsdl/CCSCD3.wsdl"><con:part><con:url>file:/c:/WorldOfJava/wsB2S/Parent/prepaid-api/src/main/resources/wsdl/CCSCD3.wsdl</con:url><con:content><![CDATA[<!--#
+#
+# Copyright (c) 2009, 2010 Oracle. All rights reserved.
+#
+# This material is the confidential property of Oracle Corporation or its
+# licensors and may be used, reproduced, stored or transmitted only in
+# accordance with a valid Oracle license or sublicense agreement.
+#-->
+<wsdl:definitions name="CCSCD3" targetNamespace="http://xmlns.oracle.com/communications/ncc/2009/05/15/pi" xmlns:pi="http://xmlns.oracle.com/communications/ncc/2009/05/15/pi" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <!--Note: only those parameters that are required in all cases have been marked as mandatory.
+       Some other parameters may be mandatory depending on circumstances (e.g. the values
+       of other parameters).
+  
+       Please see:  ChargingMax v3.1 
+                    On-Line Provisioning Interface Engine 
+                    Detailed Specification 
+                    Specification of the PI command business rules. 
+                    Document Version: 01.06 
+                    Release Date: 12 January 2009 
+                    
+       for more information about parameters and the rules applying to them-->
+  <wsdl:types>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/communications/ncc/2009/05/15/pi" xmlns="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="CCSCD3_RCH">
+        <!--Recharge an account – (custom), verify recharge (credit). This command can 
+             be enhanced by installing the piVoucherSms package to enable voucher recharging. 
+             We've documented the enhanced version here (i.e. assuming piVoucherSms is installed)-->
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+            <xs:element minOccurs="0" name="username" type="xs:string"/>
+            <xs:element minOccurs="0" name="password" type="xs:string"/>
+            <xs:element minOccurs="1" name="RECHARGE_TYPE" type="xs:string"/>
+            <xs:element minOccurs="1" name="REFERENCE" type="xs:string"/>
+            <xs:element minOccurs="0" name="MSISDN" type="xs:string"/>
+            <xs:element minOccurs="0" name="ACCOUNT_NUMBER" type="xs:string"/>
+            <xs:element minOccurs="0" name="AMOUNT" type="xs:string"/>
+            <xs:element minOccurs="0" name="BALANCE_EXPIRY" type="xs:integer"/>
+            <xs:element minOccurs="0" name="WALLET_EXPIRY" type="xs:integer"/>
+            <xs:element minOccurs="0" name="MODE" type="xs:string"/>
+            <xs:element minOccurs="0" name="WALLET_TYPE" type="xs:string"/>
+            <xs:element minOccurs="0" name="BALANCE_TYPE" type="xs:string"/>
+            <xs:element minOccurs="0" name="LIMIT_TYPE" type="xs:string"/>
+            <xs:element minOccurs="0" name="EXTRA_EDR" type="xs:string"/>
+            <xs:element minOccurs="0" name="BALMODE" type="xs:string"/>
+            <xs:element minOccurs="0" name="NEW_BUCKET" type="xs:string"/>
+            <xs:element minOccurs="0" name="SCENARIO_ID" type="xs:string"/>
+            <xs:element minOccurs="0" name="SCENARIO_NAME" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CCSCD3_RCHResponse">
+        <xs:complexType>
+          <xs:sequence maxOccurs="unbounded">
+            <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+            <xs:element minOccurs="0" name="return" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CCSCD3_RCHFault">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="CODE" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CCSCD3_CTR">
+        <!--Performs a CCS credit transfer between two accounts-->
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+            <xs:element minOccurs="0" name="username" type="xs:string"/>
+            <xs:element minOccurs="0" name="password" type="xs:string"/>
+            <xs:element minOccurs="1" name="ORIG_MSISDN" type="xs:string"/>
+            <xs:element minOccurs="1" name="DEST_MSISDN" type="xs:string"/>
+            <xs:element minOccurs="1" name="CT_TYPE" type="xs:string"/>
+            <xs:element minOccurs="0" name="ORIG_WALLET" type="xs:string"/>
+            <xs:element minOccurs="0" name="DEST_WALLET" type="xs:string"/>
+            <xs:element minOccurs="0" name="PIN" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CCSCD3_CTRResponse">
+        <xs:complexType>
+          <xs:sequence maxOccurs="unbounded">
+            <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+            <xs:element minOccurs="0" name="return" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CCSCD3_CTRFault">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="CODE" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="CCSCD3_RCHRequest">
+    <wsdl:part name="parameters" element="pi:CCSCD3_RCH"/>
+  </wsdl:message>
+  <wsdl:message name="CCSCD3_RCHResponse">
+    <wsdl:part name="parameters" element="pi:CCSCD3_RCHResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CCSCD3_RCHFault">
+    <wsdl:part name="parameters" element="pi:CCSCD3_RCHFault"/>
+  </wsdl:message>
+  <wsdl:message name="CCSCD3_CTRRequest">
+    <wsdl:part name="parameters" element="pi:CCSCD3_CTR"/>
+  </wsdl:message>
+  <wsdl:message name="CCSCD3_CTRResponse">
+    <wsdl:part name="parameters" element="pi:CCSCD3_CTRResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CCSCD3_CTRFault">
+    <wsdl:part name="parameters" element="pi:CCSCD3_CTRFault"/>
+  </wsdl:message>
+  <wsdl:portType name="CCSCD3PortType">
+    <wsdl:operation name="CCSCD3_RCH">
+      <!--Recharge an account/bucket-->
+      <wsdl:input message="pi:CCSCD3_RCHRequest" wsaw:Action="urn:CCSCD3_RCH"/>
+      <wsdl:output message="pi:CCSCD3_RCHResponse" wsaw:Action="urn:CCSCD3_RCHResponse"/>
+      <wsdl:fault name="CCSCD3_RCHFault" message="pi:CCSCD3_RCHFault" wsaw:Action="urn:CCSCD3_RCHFault"/>
+    </wsdl:operation>
+    <wsdl:operation name="CCSCD3_CTR">
+      <!--Credit transfer-->
+      <wsdl:input message="pi:CCSCD3_CTRRequest" wsaw:Action="urn:CCSCD3_CTR"/>
+      <wsdl:output message="pi:CCSCD3_CTRResponse" wsaw:Action="urn:CCSCD3_CTRResponse"/>
+      <wsdl:fault name="CCSCD3_CTRFault" message="pi:CCSCD3_CTRFault" wsaw:Action="urn:CCSCD3_CTRFault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CCSCD3Soap11Binding" type="pi:CCSCD3PortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="CCSCD3_RCH">
+      <soap:operation soapAction="urn:CCSCD3_RCH" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CCSCD3_RCHFault">
+        <soap:fault use="literal" name="CCSCD3_RCHFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CCSCD3_CTR">
+      <soap:operation soapAction="urn:CCSCD3_CTR" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CCSCD3_CTRFault">
+        <soap:fault use="literal" name="CCSCD3_CTRFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CCSCD3Soap12Binding" type="pi:CCSCD3PortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="CCSCD3_RCH">
+      <soap:operation soapAction="urn:CCSCD3_RCH" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CCSCD3_RCHFault">
+        <soap:fault use="literal" name="CCSCD3_RCHFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CCSCD3_CTR">
+      <soap:operation soapAction="urn:CCSCD3_CTR" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CCSCD3_CTRFault">
+        <soap:fault use="literal" name="CCSCD3_CTRFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CCSCD3">
+    <wsdl:port name="CCSCD3HttpSoap11Endpoint" binding="pi:CCSCD3Soap11Binding">
+      <soap:address location="http://SMP:2999"/>
+    </wsdl:port>
+    <wsdl:port name="CCSCD3HttpSoap12Endpoint" binding="pi:CCSCD3Soap12Binding">
+      <soap12:address location="http://SMP:3999"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://SMP:2999</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:CCSCD3_CTR" name="CCSCD3_CTR" bindingOperationName="CCSCD3_CTR" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="3fbfd30b-0e66-4aee-a898-dd9fc98f1655"><con:settings/><con:call name="Request 1" id="045c9cd2-2308-4424-848d-b02e562e23fb"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://SMP:2999</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pi="http://xmlns.oracle.com/communications/ncc/2009/05/15/pi">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pi:CCSCD3_CTR>
+         <!--Optional:-->
+         <pi:AUTH>?</pi:AUTH>
+         <!--Optional:-->
+         <pi:username>?</pi:username>
+         <!--Optional:-->
+         <pi:password>?</pi:password>
+         <pi:ORIG_MSISDN>?</pi:ORIG_MSISDN>
+         <pi:DEST_MSISDN>?</pi:DEST_MSISDN>
+         <pi:CT_TYPE>?</pi:CT_TYPE>
+         <!--Optional:-->
+         <pi:ORIG_WALLET>?</pi:ORIG_WALLET>
+         <!--Optional:-->
+         <pi:DEST_WALLET>?</pi:DEST_WALLET>
+         <!--Optional:-->
+         <pi:PIN>?</pi:PIN>
+      </pi:CCSCD3_CTR>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:CCSCD3_CTR"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:CCSCD3_RCH" name="CCSCD3_RCH" bindingOperationName="CCSCD3_RCH" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="6aa1f669-8f38-4141-98a4-a2ea6a0c8e66"><con:settings/><con:call name="Request 1" id="a9ae347f-e4b2-4c63-a9f8-381238fb2a2d"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://SMP:2999</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pi="http://xmlns.oracle.com/communications/ncc/2009/05/15/pi">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pi:CCSCD3_RCH>
+        <pi:username>simpel</pi:username>
+         <pi:password>simpel</pi:password>
+         <pi:RECHARGE_TYPE>Custom</pi:RECHARGE_TYPE>
+         <pi:REFERENCE>ESB_GENERIC</pi:REFERENCE>
+        <pi:MSISDN>0639849231</pi:MSISDN>
+        <pi:AMOUNT>20</pi:AMOUNT>
+         <pi:BALANCE_EXPIRY>90</pi:BALANCE_EXPIRY>
+         <pi:MODE>3</pi:MODE>
+         <pi:BALANCE_TYPE>Prepay General Cash</pi:BALANCE_TYPE>
+         <pi:BALMODE>Delta</pi:BALMODE>
+         <pi:NEW_BUCKET>N</pi:NEW_BUCKET>
+     </pi:CCSCD3_RCH>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:CCSCD3_RCH"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request 2" id="8706f6dc-05db-43ea-8f67-0e694067d39a"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://SMP:2999</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pi="http://xmlns.oracle.com/communications/ncc/2009/05/15/pi">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pi:CCSCD3_RCH>
+         <!--Optional:-->
+         <pi:AUTH>?</pi:AUTH>
+         <!--Optional:-->
+         <pi:username>?</pi:username>
+         <!--Optional:-->
+         <pi:password>?</pi:password>
+         <pi:RECHARGE_TYPE>?</pi:RECHARGE_TYPE>
+         <pi:REFERENCE>?</pi:REFERENCE>
+         <!--Optional:-->
+         <pi:MSISDN>?</pi:MSISDN>
+         <!--Optional:-->
+         <pi:ACCOUNT_NUMBER>?</pi:ACCOUNT_NUMBER>
+         <!--Optional:-->
+         <pi:AMOUNT>?</pi:AMOUNT>
+         <!--Optional:-->
+         <pi:BALANCE_EXPIRY>?</pi:BALANCE_EXPIRY>
+         <!--Optional:-->
+         <pi:WALLET_EXPIRY>?</pi:WALLET_EXPIRY>
+         <!--Optional:-->
+         <pi:MODE>?</pi:MODE>
+         <!--Optional:-->
+         <pi:WALLET_TYPE>?</pi:WALLET_TYPE>
+         <!--Optional:-->
+         <pi:BALANCE_TYPE>?</pi:BALANCE_TYPE>
+         <!--Optional:-->
+         <pi:LIMIT_TYPE>?</pi:LIMIT_TYPE>
+         <!--Optional:-->
+         <pi:EXTRA_EDR>?</pi:EXTRA_EDR>
+         <!--Optional:-->
+         <pi:BALMODE>?</pi:BALMODE>
+         <!--Optional:-->
+         <pi:NEW_BUCKET>?</pi:NEW_BUCKET>
+         <!--Optional:-->
+         <pi:SCENARIO_ID>?</pi:SCENARIO_ID>
+         <!--Optional:-->
+         <pi:SCENARIO_NAME>?</pi:SCENARIO_NAME>
+      </pi:CCSCD3_RCH>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:CCSCD3_RCH"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request 3" id="22f6d50b-019d-47f7-85ac-4960366cf9dd"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.0.17.34:8006</con:endpoint><con:request><![CDATA[<SOAP-ENV:Envelope 
+	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+	<SOAP-ENV:Header/>
+	<SOAP-ENV:Body>
+		<ns2:CCSCD3_RCH xmlns:ns2="http://xmlns.oracle.com/communications/ncc/2009/05/15/pi">
+			<ns2:username>simpel</ns2:username>
+			<ns2:password>simpel</ns2:password>
+			<ns2:RECHARGE_TYPE>Custom</ns2:RECHARGE_TYPE>
+			<ns2:REFERENCE>ESB_GENERIC</ns2:REFERENCE>
+			<ns2:MSISDN>31614753514</ns2:MSISDN>
+			<ns2:AMOUNT>200000.0</ns2:AMOUNT>
+			<ns2:WALLET_EXPIRY>180</ns2:WALLET_EXPIRY>
+			<ns2:MODE>3</ns2:MODE>
+			<ns2:BALANCE_TYPE>Prepay General Cash</ns2:BALANCE_TYPE>
+			<ns2:NEW_BUCKET>N</ns2:NEW_BUCKET>
+		</ns2:CCSCD3_RCH>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:CCSCD3_RCH"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="CCSCD3Soap12Binding" type="wsdl" bindingName="{http://xmlns.oracle.com/communications/ncc/2009/05/15/pi}CCSCD3Soap12Binding" soapVersion="1_1" anonymous="optional" definition="file:/c:/WorldOfJava/wsB2S/Parent/prepaid-api/src/main/resources/wsdl/CCSCD3.wsdl" id="460730ab-df51-4b0b-9d96-47b09af09a6a" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\c:\WorldOfJava\wsB2S\Parent\prepaid-api\src\main\resources\wsdl\CCSCD3.wsdl"><con:part><con:url>file:\c:\WorldOfJava\wsB2S\Parent\prepaid-api\src\main\resources\wsdl\CCSCD3.wsdl</con:url><con:content><![CDATA[<!--#
+#
+# Copyright (c) 2009, 2010 Oracle. All rights reserved.
+#
+# This material is the confidential property of Oracle Corporation or its
+# licensors and may be used, reproduced, stored or transmitted only in
+# accordance with a valid Oracle license or sublicense agreement.
+#-->
+<wsdl:definitions name="CCSCD3" targetNamespace="http://xmlns.oracle.com/communications/ncc/2009/05/15/pi" xmlns:pi="http://xmlns.oracle.com/communications/ncc/2009/05/15/pi" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <!--Note: only those parameters that are required in all cases have been marked as mandatory.
+       Some other parameters may be mandatory depending on circumstances (e.g. the values
+       of other parameters).
+  
+       Please see:  ChargingMax v3.1 
+                    On-Line Provisioning Interface Engine 
+                    Detailed Specification 
+                    Specification of the PI command business rules. 
+                    Document Version: 01.06 
+                    Release Date: 12 January 2009 
+                    
+       for more information about parameters and the rules applying to them-->
+  <wsdl:types>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/communications/ncc/2009/05/15/pi" xmlns="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="CCSCD3_RCH">
+        <!--Recharge an account – (custom), verify recharge (credit). This command can 
+             be enhanced by installing the piVoucherSms package to enable voucher recharging. 
+             We've documented the enhanced version here (i.e. assuming piVoucherSms is installed)-->
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+            <xs:element minOccurs="0" name="username" type="xs:string"/>
+            <xs:element minOccurs="0" name="password" type="xs:string"/>
+            <xs:element minOccurs="1" name="RECHARGE_TYPE" type="xs:string"/>
+            <xs:element minOccurs="1" name="REFERENCE" type="xs:string"/>
+            <xs:element minOccurs="0" name="MSISDN" type="xs:string"/>
+            <xs:element minOccurs="0" name="ACCOUNT_NUMBER" type="xs:string"/>
+            <xs:element minOccurs="0" name="AMOUNT" type="xs:string"/>
+            <xs:element minOccurs="0" name="BALANCE_EXPIRY" type="xs:integer"/>
+            <xs:element minOccurs="0" name="WALLET_EXPIRY" type="xs:integer"/>
+            <xs:element minOccurs="0" name="MODE" type="xs:string"/>
+            <xs:element minOccurs="0" name="WALLET_TYPE" type="xs:string"/>
+            <xs:element minOccurs="0" name="BALANCE_TYPE" type="xs:string"/>
+            <xs:element minOccurs="0" name="LIMIT_TYPE" type="xs:string"/>
+            <xs:element minOccurs="0" name="EXTRA_EDR" type="xs:string"/>
+            <xs:element minOccurs="0" name="BALMODE" type="xs:string"/>
+            <xs:element minOccurs="0" name="NEW_BUCKET" type="xs:string"/>
+            <xs:element minOccurs="0" name="SCENARIO_ID" type="xs:string"/>
+            <xs:element minOccurs="0" name="SCENARIO_NAME" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CCSCD3_RCHResponse">
+        <xs:complexType>
+          <xs:sequence maxOccurs="unbounded">
+            <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+            <xs:element minOccurs="0" name="return" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CCSCD3_RCHFault">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="CODE" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CCSCD3_CTR">
+        <!--Performs a CCS credit transfer between two accounts-->
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+            <xs:element minOccurs="0" name="username" type="xs:string"/>
+            <xs:element minOccurs="0" name="password" type="xs:string"/>
+            <xs:element minOccurs="1" name="ORIG_MSISDN" type="xs:string"/>
+            <xs:element minOccurs="1" name="DEST_MSISDN" type="xs:string"/>
+            <xs:element minOccurs="1" name="CT_TYPE" type="xs:string"/>
+            <xs:element minOccurs="0" name="ORIG_WALLET" type="xs:string"/>
+            <xs:element minOccurs="0" name="DEST_WALLET" type="xs:string"/>
+            <xs:element minOccurs="0" name="PIN" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CCSCD3_CTRResponse">
+        <xs:complexType>
+          <xs:sequence maxOccurs="unbounded">
+            <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+            <xs:element minOccurs="0" name="return" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CCSCD3_CTRFault">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="CODE" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="CCSCD3_RCHRequest">
+    <wsdl:part name="parameters" element="pi:CCSCD3_RCH"/>
+  </wsdl:message>
+  <wsdl:message name="CCSCD3_RCHResponse">
+    <wsdl:part name="parameters" element="pi:CCSCD3_RCHResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CCSCD3_RCHFault">
+    <wsdl:part name="parameters" element="pi:CCSCD3_RCHFault"/>
+  </wsdl:message>
+  <wsdl:message name="CCSCD3_CTRRequest">
+    <wsdl:part name="parameters" element="pi:CCSCD3_CTR"/>
+  </wsdl:message>
+  <wsdl:message name="CCSCD3_CTRResponse">
+    <wsdl:part name="parameters" element="pi:CCSCD3_CTRResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CCSCD3_CTRFault">
+    <wsdl:part name="parameters" element="pi:CCSCD3_CTRFault"/>
+  </wsdl:message>
+  <wsdl:portType name="CCSCD3PortType">
+    <wsdl:operation name="CCSCD3_RCH">
+      <!--Recharge an account/bucket-->
+      <wsdl:input message="pi:CCSCD3_RCHRequest" wsaw:Action="urn:CCSCD3_RCH"/>
+      <wsdl:output message="pi:CCSCD3_RCHResponse" wsaw:Action="urn:CCSCD3_RCHResponse"/>
+      <wsdl:fault name="CCSCD3_RCHFault" message="pi:CCSCD3_RCHFault" wsaw:Action="urn:CCSCD3_RCHFault"/>
+    </wsdl:operation>
+    <wsdl:operation name="CCSCD3_CTR">
+      <!--Credit transfer-->
+      <wsdl:input message="pi:CCSCD3_CTRRequest" wsaw:Action="urn:CCSCD3_CTR"/>
+      <wsdl:output message="pi:CCSCD3_CTRResponse" wsaw:Action="urn:CCSCD3_CTRResponse"/>
+      <wsdl:fault name="CCSCD3_CTRFault" message="pi:CCSCD3_CTRFault" wsaw:Action="urn:CCSCD3_CTRFault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CCSCD3Soap11Binding" type="pi:CCSCD3PortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="CCSCD3_RCH">
+      <soap:operation soapAction="urn:CCSCD3_RCH" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CCSCD3_RCHFault">
+        <soap:fault use="literal" name="CCSCD3_RCHFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CCSCD3_CTR">
+      <soap:operation soapAction="urn:CCSCD3_CTR" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CCSCD3_CTRFault">
+        <soap:fault use="literal" name="CCSCD3_CTRFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CCSCD3Soap12Binding" type="pi:CCSCD3PortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="CCSCD3_RCH">
+      <soap:operation soapAction="urn:CCSCD3_RCH" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CCSCD3_RCHFault">
+        <soap:fault use="literal" name="CCSCD3_RCHFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CCSCD3_CTR">
+      <soap:operation soapAction="urn:CCSCD3_CTR" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CCSCD3_CTRFault">
+        <soap:fault use="literal" name="CCSCD3_CTRFault"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CCSCD3">
+    <wsdl:port name="CCSCD3HttpSoap11Endpoint" binding="pi:CCSCD3Soap11Binding">
+      <soap:address location="http://SMP:2999"/>
+    </wsdl:port>
+    <wsdl:port name="CCSCD3HttpSoap12Endpoint" binding="pi:CCSCD3Soap12Binding">
+      <soap12:address location="http://SMP:3999"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://SMP:3999</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:CCSCD3_CTR" name="CCSCD3_CTR" bindingOperationName="CCSCD3_CTR" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="5c2a7e7f-7cb5-47cd-8188-de96fd8a4f37"><con:settings/><con:call name="Request 1" id="7339d110-da24-4b52-aa70-6e8ac0ebb72a"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://SMP:3999</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pi="http://xmlns.oracle.com/communications/ncc/2009/05/15/pi">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pi:CCSCD3_CTR>
+         <!--Optional:-->
+         <pi:AUTH>?</pi:AUTH>
+         <!--Optional:-->
+         <pi:username>?</pi:username>
+         <!--Optional:-->
+         <pi:password>?</pi:password>
+         <pi:ORIG_MSISDN>?</pi:ORIG_MSISDN>
+         <pi:DEST_MSISDN>?</pi:DEST_MSISDN>
+         <pi:CT_TYPE>?</pi:CT_TYPE>
+         <!--Optional:-->
+         <pi:ORIG_WALLET>?</pi:ORIG_WALLET>
+         <!--Optional:-->
+         <pi:DEST_WALLET>?</pi:DEST_WALLET>
+         <!--Optional:-->
+         <pi:PIN>?</pi:PIN>
+      </pi:CCSCD3_CTR>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:CCSCD3_CTR"/></con:call></con:operation><con:operation isOneWay="false" action="urn:CCSCD3_RCH" name="CCSCD3_RCH" bindingOperationName="CCSCD3_RCH" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="995944e7-8b2a-4547-ad32-ec57d1e57447"><con:settings/><con:call name="Request 1" id="d2776b56-a577-4bf1-928c-5860088b983e"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://SMP:3999</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pi="http://xmlns.oracle.com/communications/ncc/2009/05/15/pi">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <pi:CCSCD3_RCH>
+         <!--Optional:-->
+         <pi:AUTH>?</pi:AUTH>
+         <!--Optional:-->
+         <pi:username>?</pi:username>
+         <!--Optional:-->
+         <pi:password>?</pi:password>
+         <pi:RECHARGE_TYPE>?</pi:RECHARGE_TYPE>
+         <pi:REFERENCE>?</pi:REFERENCE>
+         <!--Optional:-->
+         <pi:MSISDN>?</pi:MSISDN>
+         <!--Optional:-->
+         <pi:ACCOUNT_NUMBER>?</pi:ACCOUNT_NUMBER>
+         <!--Optional:-->
+         <pi:AMOUNT>?</pi:AMOUNT>
+         <!--Optional:-->
+         <pi:BALANCE_EXPIRY>?</pi:BALANCE_EXPIRY>
+         <!--Optional:-->
+         <pi:WALLET_EXPIRY>?</pi:WALLET_EXPIRY>
+         <!--Optional:-->
+         <pi:MODE>?</pi:MODE>
+         <!--Optional:-->
+         <pi:WALLET_TYPE>?</pi:WALLET_TYPE>
+         <!--Optional:-->
+         <pi:BALANCE_TYPE>?</pi:BALANCE_TYPE>
+         <!--Optional:-->
+         <pi:LIMIT_TYPE>?</pi:LIMIT_TYPE>
+         <!--Optional:-->
+         <pi:EXTRA_EDR>?</pi:EXTRA_EDR>
+         <!--Optional:-->
+         <pi:BALMODE>?</pi:BALMODE>
+         <!--Optional:-->
+         <pi:NEW_BUCKET>?</pi:NEW_BUCKET>
+         <!--Optional:-->
+         <pi:SCENARIO_ID>?</pi:SCENARIO_ID>
+         <!--Optional:-->
+         <pi:SCENARIO_NAME>?</pi:SCENARIO_NAME>
+      </pi:CCSCD3_RCH>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:CCSCD3_RCH"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>

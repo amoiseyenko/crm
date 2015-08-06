@@ -1,0 +1,11 @@
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+	<deployment>
+		<exclude-subsystems>
+          <subsystem name="jpa" />
+       	</exclude-subsystems>
+		<exclusions>
+			<module name="org.apache.log4j" />
+			<module name="org.apache.commons.logging" />
+		</exclusions>
+	</deployment>
+</jboss-deployment-structure>

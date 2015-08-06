@@ -1,0 +1,3 @@
+/**
+ * JavaSctipt test file
+ */

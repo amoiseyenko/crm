@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+#
+#
+# Copyright (c) 2009, 2012 Oracle. All rights reserved.
+#
+# This material is the confidential property of Oracle Corporation or its
+# licensors and may be used, reproduced, stored or transmitted only in
+# accordance with a valid Oracle license or sublicense agreement.
+#
+-->
+<wsdl:definitions name="CCSCD1"
+  targetNamespace="http://xmlns.oracle.com/communications/ncc/2009/05/15/pi"
+  xmlns:pi="http://xmlns.oracle.com/communications/ncc/2009/05/15/pi"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+  <!-- Note: only those parameters that are required in all cases have been marked as mandatory.
+       Some other parameters may be mandatory depending on circumstances (e.g. the values
+       of other parameters).
+
+       Please see:  ChargingMax v3.1
+                    On-Line Provisioning Interface Engine
+                    Detailed Specification
+                    Specification of the PI command business rules.
+                    Document Version: 01.06
+                    Release Date: 12 January 2009
+
+       for more information about parameters and the rules applying to them -->
+
+<!-- These subscriber commands can be updated by piWalletSms to process wallets as well:
+     we've documented the -extended- (wallet) capabilities here, i.e. assuming piWalletSms
+     has been installed. -->
+
+  <wsdl:types>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified"
+               targetNamespace="http://xmlns.oracle.com/communications/ncc/2009/05/15/pi"
+               xmlns="http://www.w3.org/2001/XMLSchema">
+
+      <xs:element name="CCSCD1_ADD">
+        <!-- Adds a new subscriber or range of subscribers, can also add new wallets or links to existing wallets -->
+        <xs:complexType>
+          <xs:sequence>
+             <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+             <xs:element minOccurs="0" name="username" type="xs:string"/>
+             <xs:element minOccurs="0" name="password" type="xs:string"/>
+             <xs:element minOccurs="1" name="PROVIDER" type="xs:string"/>
+             <xs:element minOccurs="1" name="PRODUCT" type="xs:string"/>
+             <xs:element minOccurs="0" name="ACCOUNT_NUMBER" type="xs:string"/>
+             <xs:element minOccurs="0" name="BYPASS_NUMBER" type="xs:string"/>
+             <xs:element minOccurs="0" name="CHARGING_DOMAIN" type="xs:string"/>
+             <xs:element minOccurs="0" name="CREDIT_LIMIT" type="xs:string"/>
+             <xs:element minOccurs="0" name="CURRENCY" type="xs:string"/>
+             <xs:element minOccurs="0" name="END_MSISDN" type="xs:string"/>
+             <xs:element minOccurs="0" name="EXTRA_EDR" type="xs:string"/>
+             <xs:element minOccurs="0" name="INITIAL_STATE" type="xs:string"/>
+             <xs:element minOccurs="0" name="LANGUAGE" type="xs:string"/>
+             <xs:element minOccurs="0" name="LIMIT_TYPE" type="xs:string"/>
+             <xs:element minOccurs="0" name="LW_ACCOUNT_NUMBER" type="xs:string"/>
+             <xs:element minOccurs="0" name="LW_MSISDN" type="xs:string"/>
+             <xs:element minOccurs="0" name="MAX_CONCURRENT_ACCESS" type="xs:string"/>
+             <xs:element minOccurs="0" name="MSISDN" type="xs:string"/>
+             <xs:element minOccurs="0" name="PIN" type="xs:string"/>
+             <xs:element minOccurs="0" name="START_MSISDN" type="xs:string"/>
+             <xs:element minOccurs="0" name="TRACKING_DOMAIN" type="xs:string"/>
+             <xs:element minOccurs="0" name="WALLET_REFERENCE" type="xs:string"/>
+             <xs:element minOccurs="0" name="WALLET_TYPE" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+      <xs:element name="CCSCD1_ADDResponse">
+        <!-- List of one or more account numbers pipe (|) separated -->
+        <xs:complexType>
+           <xs:sequence maxOccurs="unbounded">
+             <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+             <xs:element minOccurs="0" name="ACCOUNT_NUMBER" type="xs:string"/>
+           </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+      <xs:element name="CCSCD1_ADDFault">
+        <xs:complexType>
+           <xs:sequence>
+             <xs:element minOccurs="0" name="CODE" type="xs:string"/>
+           </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+      <xs:element name="CCSCD1_CHG">
+        <!-- Change subscriber or wallet details -->
+        <xs:complexType>
+          <xs:sequence>
+             <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+             <xs:element minOccurs="0" name="username" type="xs:string"/>
+             <xs:element minOccurs="0" name="password" type="xs:string"/>
+             <xs:element minOccurs="1" name="MSISDN" type="xs:string"/>
+             <xs:element minOccurs="0" name="BALANCE_EXPIRY_DATE" type="xs:string"/>
+             <xs:element minOccurs="0" name="BALANCE_EXPIRY" type="xs:string"/>
+             <xs:element minOccurs="0" name="BALANCE_TYPE" type="xs:string"/>
+             <xs:element minOccurs="0" name="BALANCE" type="xs:string"/>
+             <xs:element minOccurs="0" name="BALMODE" type="xs:string"/>
+             <xs:element minOccurs="0" name="CREDIT_LIMIT" type="xs:string"/>
+             <xs:element minOccurs="0" name="CURRENCY" type="xs:string"/>
+             <xs:element minOccurs="0" name="EXPMODE" type="xs:string"/>
+             <xs:element minOccurs="0" name="EXTRA_EDR" type="xs:string"/>
+             <xs:element minOccurs="0" name="LANGUAGE" type="xs:string"/>
+             <xs:element minOccurs="0" name="NEW_MSISDN" type="xs:string"/>
+             <xs:element minOccurs="0" name="PIN" type="xs:string"/>
+             <xs:element minOccurs="0" name="PRODUCT" type="xs:string"/>
+             <xs:element minOccurs="0" name="STATUS" type="xs:string"/>
+             <xs:element minOccurs="0" name="WALLET_EXPIRY_DATE" type="xs:string"/>
+             <xs:element minOccurs="0" name="WALLET_EXPIRY" type="xs:string"/>
+             <xs:element minOccurs="0" name="WALLET_REFERENCE" type="xs:string"/>
+             <xs:element minOccurs="0" name="WALLET_TYPE" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+      <xs:element name="CCSCD1_CHGResponse">
+        <xs:complexType>
+           <xs:sequence maxOccurs="unbounded">
+             <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+             <xs:element minOccurs="0" name="return" type="xs:string"/>
+           </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+      <xs:element name="CCSCD1_CHGFault">
+        <xs:complexType>
+           <xs:sequence>
+             <xs:element minOccurs="0" name="CODE" type="xs:string"/>
+           </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+      <xs:element name="CCSCD1_DEL">
+        <!-- Delete a subscriber or wallet -->
+        <xs:complexType>
+          <xs:sequence>
+             <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+             <xs:element minOccurs="0" name="username" type="xs:string"/>
+             <xs:element minOccurs="0" name="password" type="xs:string"/>
+             <xs:element minOccurs="1" name="MSISDN" type="xs:string"/>
+             <xs:element minOccurs="0" name="BALANCE_TYPE" type="xs:string"/>
+             <xs:element minOccurs="0" name="DELETE_LINKED_MSISDNS" type="xs:string"/>
+             <xs:element minOccurs="0" name="EXTRA_EDR" type="xs:string"/>
+             <xs:element minOccurs="0" name="WALLET_TYPE" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+      <xs:element name="CCSCD1_DELResponse">
+        <xs:complexType>
+           <xs:sequence maxOccurs="unbounded">
+             <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+             <xs:element minOccurs="0" name="return" type="xs:string"/>
+           </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+      <xs:element name="CCSCD1_DELFault">
+        <xs:complexType>
+           <xs:sequence>
+             <xs:element minOccurs="0" name="CODE" type="xs:string"/>
+           </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+      <xs:element name="CCSCD1_QRY">
+        <!-- Query a subscriber or wallet -->
+        <xs:complexType>
+          <xs:sequence>
+             <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+             <xs:element minOccurs="0" name="username" type="xs:string"/>
+             <xs:element minOccurs="0" name="password" type="xs:string"/>
+             <xs:element minOccurs="1" name="MSISDN" type="xs:string"/>
+             <!-- List of elements to return, pipe (|) separated -->
+             <xs:element minOccurs="0" name="LIST_TYPE" type="xs:string"/>
+             <xs:element minOccurs="0" name="WALLET_TYPE" type="xs:string"/>
+             <xs:element minOccurs="0" name="BALANCE_TYPE" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+      <xs:element name="CCSCD1_QRYResponse">
+        <!-- Actual elements returned depends on LIST_TYPE and BALANCE_TYPE specified in request.
+             If BALANCE_TYPE==ALL, a BALANCES element is returned, otherwise a total wallet
+             user or system currency balance is returned in BALANCE. -->
+        <xs:complexType>
+            <xs:sequence maxOccurs="unbounded">
+                <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+                <xs:element minOccurs="0" name="MSISDN" type="xs:string"/>
+                <xs:element minOccurs="0" name="ACCOUNT_NUMBER" type="xs:string"/>
+                <xs:element minOccurs="0" name="PRODUCT" type="xs:string"/>
+                <xs:element minOccurs="0" name="SERVICE_PROVIDER" type="xs:string"/>
+                <xs:element minOccurs="0" name="STATUS" type="xs:string"/>
+                <xs:element minOccurs="0" name="CREATION_DATE" type="xs:string"/>
+                <xs:element minOccurs="0" name="WALLET_EXPIRY_DATE" type="xs:string"/>
+                <xs:element minOccurs="0" name="BALANCE_EXPIRY_DATE" type="xs:string"/>
+                <xs:element minOccurs="0" name="BALANCE" type="xs:string"/>
+                <xs:element minOccurs="0" name="UNRESERVED_BALANCE" type="xs:string"/>
+                <xs:element minOccurs="0" name="INITIAL_BALANCE" type="xs:string"/>
+                <xs:element minOccurs="0" name="LANGUAGE" type="xs:string"/>
+                <xs:element minOccurs="0" name="BALANCES">
+                    <!-- List of balance items -->
+                    <xs:complexType>
+                         <xs:sequence>
+                             <xs:element name="BALANCE_ITEM" minOccurs="0" maxOccurs="unbounded">
+                                 <xs:complexType>
+                                     <xs:sequence>
+                                         <xs:element minOccurs="0" name="BALANCE_TYPE_NAME" type="xs:string"/>
+                                         <xs:element minOccurs="0" name="BUCKETS">
+                                             <!-- List of bucket expiry/value items -->
+                                             <xs:complexType>
+                                                  <xs:sequence>
+                                                      <xs:element name="BUCKET_ITEM" minOccurs="0" maxOccurs="unbounded">
+                                                          <xs:complexType>
+                                                              <xs:sequence>
+                                                                  <xs:element minOccurs="0" name="BUCKET_VALUE" type="xs:string"/>
+                                                                  <xs:element minOccurs="0" name="BUCKET_EXPIRY" type="xs:string"/>
+                                                              </xs:sequence>
+                                                          </xs:complexType>
+                                                      </xs:element>
+                                                  </xs:sequence>
+                                             </xs:complexType>
+                                         </xs:element>
+                                     </xs:sequence>
+                                 </xs:complexType>
+                             </xs:element>
+                         </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="LAST_RECHARGE_DATE" type="xs:string"/>
+                <xs:element minOccurs="0" name="LAST_CC_RECHARGE_DATE" type="xs:string"/>
+                <xs:element minOccurs="0" name="LAST_USE_DATE" type="xs:string"/>
+                <xs:element minOccurs="0" name="LAST_RECHARGE_AMOUNT" type="xs:string"/>
+                <xs:element minOccurs="0" name="PREV_WALLET_EXPIRY_DATE" type="xs:string"/>
+                <xs:element minOccurs="0" name="PREV_BALANCE_EXPIRY_DATE" type="xs:string"/>
+                <xs:element minOccurs="0" name="PREV_BALANCE" type="xs:string"/>
+                <xs:element minOccurs="0" name="LAST_EXP_CREDIT" type="xs:string"/>
+                <xs:element minOccurs="0" name="TOTAL_EXP_CREDIT" type="xs:string"/>
+                <xs:element minOccurs="0" name="LAST_EXP_DATE" type="xs:string"/>
+                <xs:element minOccurs="0" name="FIRST_ACTIVATION_DATE" type="xs:string"/>
+                <xs:element minOccurs="0" name="LAST_STATE_CHANGE_DATE" type="xs:string"/>
+                <xs:element minOccurs="0" name="LAST_STATE_CHANGE_REASON" type="xs:string"/>
+                <xs:element minOccurs="0" name="BYPASS_NUMBER" type="xs:string"/>
+                <xs:element minOccurs="0" name="WALLET_TYPE" type="xs:string"/>
+                <xs:element minOccurs="0" name="CHARGING_DOMAIN" type="xs:string"/>
+                <xs:element minOccurs="0" name="TRACKING_DOMAIN" type="xs:string"/>
+                <xs:element minOccurs="0" name="FFD" type="xs:string"/>
+                <xs:element minOccurs="0" name="FFN" type="xs:string"/>
+                <xs:element minOccurs="0" name="FDN" type="xs:string"/>
+                <xs:element minOccurs="0" name="CUG" type="xs:string"/>
+                <xs:element minOccurs="0" name="CURRENCY" type="xs:string"/>
+                <xs:element minOccurs="0" name="WALLET_REFERENCE" type="xs:string"/>
+                <!-- Remove these three fields if they are to be suppressed -->
+                <xs:element minOccurs="0" name="BALANCE_OFFSET_DATE" type="xs:string"/>
+                <xs:element minOccurs="0" name="FREE_SWAPS_REMAINING" type="xs:string"/>
+                <xs:element minOccurs="0" name="LAST_SWAP_RESET_DATE" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+      <xs:element name="CCSCD1_QRYFault">
+        <xs:complexType>
+           <xs:sequence>
+             <xs:element minOccurs="0" name="CODE" type="xs:string"/>
+           </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+        <xs:element name="CCSCD1_MSW">
+          <!-- Merges the wallets of two subscribers -->
+          <xs:complexType>
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+               <xs:element minOccurs="0" name="username" type="xs:string"/>
+               <xs:element minOccurs="0" name="password" type="xs:string"/>
+               <xs:element minOccurs="1" name="MSISDN1" type="xs:string"/>
+               <xs:element minOccurs="1" name="MSISDN2" type="xs:string"/>
+               <xs:element minOccurs="0" name="WALLET_TYPE1" type="xs:string"/>
+               <xs:element minOccurs="0" name="WALLET_TYPE2" type="xs:string"/>
+               <xs:element minOccurs="0" name="EXTRA_EDR" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="CCSCD1_MSWResponse">
+          <xs:complexType>
+           <xs:sequence maxOccurs="unbounded">
+               <xs:element minOccurs="0" name="AUTH" type="xs:string"/>
+               <xs:element minOccurs="0" name="return" type="xs:string"/>
+           </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="CCSCD1_MSWFault">
+          <xs:complexType>
+             <xs:sequence>
+               <xs:element minOccurs="0" name="CODE" type="xs:string"/>
+             </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+    </xs:schema>
+  </wsdl:types>
+
+
+    
+  <wsdl:message name="CCSCD1_ADDRequest">
+    <wsdl:part name="parameters" element="pi:CCSCD1_ADD"/>
+  </wsdl:message>
+  
+  <wsdl:message name="CCSCD1_ADDResponse">
+      <wsdl:part name="parameters" element="pi:CCSCD1_ADDResponse"/>
+  </wsdl:message>
+
+  <wsdl:message name="CCSCD1_ADDFault">
+      <wsdl:part name="parameters" element="pi:CCSCD1_ADDFault"/>
+  </wsdl:message>
+
+  <wsdl:message name="CCSCD1_CHGRequest">
+    <wsdl:part name="parameters" element="pi:CCSCD1_CHG"/>
+  </wsdl:message>
+  
+  <wsdl:message name="CCSCD1_CHGResponse">
+      <wsdl:part name="parameters" element="pi:CCSCD1_CHGResponse"/>
+  </wsdl:message>
+
+  <wsdl:message name="CCSCD1_CHGFault">
+      <wsdl:part name="parameters" element="pi:CCSCD1_CHGFault"/>
+  </wsdl:message>
+
+  <wsdl:message name="CCSCD1_DELRequest">
+    <wsdl:part name="parameters" element="pi:CCSCD1_DEL"/>
+  </wsdl:message>
+  
+  <wsdl:message name="CCSCD1_DELResponse">
+      <wsdl:part name="parameters" element="pi:CCSCD1_DELResponse"/>
+  </wsdl:message>
+
+  <wsdl:message name="CCSCD1_DELFault">
+      <wsdl:part name="parameters" element="pi:CCSCD1_DELFault"/>
+  </wsdl:message>
+
+    <wsdl:message name="CCSCD1_QRYRequest">
+      <wsdl:part name="parameters" element="pi:CCSCD1_QRY"/>
+    </wsdl:message>
+
+    <wsdl:message name="CCSCD1_QRYResponse">
+        <wsdl:part name="parameters" element="pi:CCSCD1_QRYResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="CCSCD1_QRYFault">
+        <wsdl:part name="parameters" element="pi:CCSCD1_QRYFault"/>
+    </wsdl:message>
+
+    <wsdl:message name="CCSCD1_MSWRequest">
+      <wsdl:part name="parameters" element="pi:CCSCD1_MSW"/>
+    </wsdl:message>
+
+    <wsdl:message name="CCSCD1_MSWResponse">
+        <wsdl:part name="parameters" element="pi:CCSCD1_MSWResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="CCSCD1_MSWFault">
+        <wsdl:part name="parameters" element="pi:CCSCD1_MSWFault"/>
+    </wsdl:message>
+
+
+
+  <wsdl:portType name="CCSCD1PortType">
+  
+    <wsdl:operation name="CCSCD1_ADD">
+      <!-- Provisions one or more subscribers -->
+      <wsdl:input message="pi:CCSCD1_ADDRequest" wsaw:Action="urn:CCSCD1_ADD"/>
+      <wsdl:output message="pi:CCSCD1_ADDResponse" wsaw:Action="urn:CCSCD1_ADDResponse"/>
+      <wsdl:fault name="CCSCD1_ADDFault" message="pi:CCSCD1_ADDFault" wsaw:Action="urn:CCSCD1_ADDFault"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="CCSCD1_CHG">
+      <wsdl:input message="pi:CCSCD1_CHGRequest" wsaw:Action="urn:CCSCD1_CHG"/>
+      <wsdl:output message="pi:CCSCD1_CHGResponse" wsaw:Action="urn:CCSCD1_CHGResponse"/>
+      <wsdl:fault name="CCSCD1_CHGFault" message="pi:CCSCD1_CHGFault" wsaw:Action="urn:CCSCD1_CHGFault"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="CCSCD1_DEL">
+      <wsdl:input message="pi:CCSCD1_DELRequest" wsaw:Action="urn:CCSCD1_DEL"/>
+      <wsdl:output message="pi:CCSCD1_DELResponse" wsaw:Action="urn:CCSCD1_DELResponse"/>
+      <wsdl:fault name="CCSCD1_DELFault" message="pi:CCSCD1_DELFault" wsaw:Action="urn:CCSCD1_DELFault"/>
+    </wsdl:operation>
+    
+      <wsdl:operation name="CCSCD1_QRY">
+        <wsdl:input message="pi:CCSCD1_QRYRequest" wsaw:Action="urn:CCSCD1_QRY"/>
+        <wsdl:output message="pi:CCSCD1_QRYResponse" wsaw:Action="urn:CCSCD1_QRYResponse"/>
+        <wsdl:fault name="CCSCD1_QRYFault" message="pi:CCSCD1_QRYFault" wsaw:Action="urn:CCSCD1_QRYFault"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="CCSCD1_MSW">
+        <wsdl:input message="pi:CCSCD1_MSWRequest" wsaw:Action="urn:CCSCD1_MSW"/>
+        <wsdl:output message="pi:CCSCD1_MSWResponse" wsaw:Action="urn:CCSCD1_MSWResponse"/>
+        <wsdl:fault name="CCSCD1_MSWFault" message="pi:CCSCD1_MSWFault" wsaw:Action="urn:CCSCD1_MSWFault"/>
+      </wsdl:operation>
+
+  </wsdl:portType>
+
+
+
+  <wsdl:binding name="CCSCD1Soap11Binding" type="pi:CCSCD1PortType">
+      <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+      <wsdl:operation name="CCSCD1_ADD">
+          <soap:operation soapAction="urn:CCSCD1_ADD" style="document"/>
+          <wsdl:input>
+              <soap:body use="literal"/>
+          </wsdl:input>
+          <wsdl:output>
+              <soap:body use="literal"/>
+          </wsdl:output>
+          <wsdl:fault name="CCSCD1_ADDFault">
+              <soap:fault use="literal" name="CCSCD1_ADDFault"/>
+          </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="CCSCD1_CHG">
+          <soap:operation soapAction="urn:CCSCD1_CHG" style="document"/>
+          <wsdl:input>
+              <soap:body use="literal"/>
+          </wsdl:input>
+          <wsdl:output>
+              <soap:body use="literal"/>
+          </wsdl:output>
+          <wsdl:fault name="CCSCD1_CHGFault">
+              <soap:fault use="literal" name="CCSCD1_CHGFault"/>
+          </wsdl:fault>
+      </wsdl:operation>
+    <wsdl:operation name="CCSCD1_DEL">
+        <soap:operation soapAction="urn:CCSCD1_DEL" style="document"/>
+        <wsdl:input>
+            <soap:body use="literal"/>
+        </wsdl:input>
+        <wsdl:output>
+            <soap:body use="literal"/>
+        </wsdl:output>
+        <wsdl:fault name="CCSCD1_DELFault">
+          <soap:fault use="literal" name="CCSCD1_DELFault"/>
+        </wsdl:fault>
+    </wsdl:operation>
+      <wsdl:operation name="CCSCD1_QRY">
+          <soap:operation soapAction="urn:CCSCD1_QRY" style="document"/>
+          <wsdl:input>
+              <soap:body use="literal"/>
+          </wsdl:input>
+          <wsdl:output>
+              <soap:body use="literal"/>
+          </wsdl:output>
+          <wsdl:fault name="CCSCD1_QRYFault">
+            <soap:fault use="literal" name="CCSCD1_QRYFault"/>
+          </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="CCSCD1_MSW">
+          <soap:operation soapAction="urn:CCSCD1_MSW" style="document"/>
+          <wsdl:input>
+              <soap:body use="literal"/>
+          </wsdl:input>
+          <wsdl:output>
+              <soap:body use="literal"/>
+          </wsdl:output>
+          <wsdl:fault name="CCSCD1_MSWFault">
+            <soap:fault use="literal" name="CCSCD1_MSWFault"/>
+          </wsdl:fault>
+      </wsdl:operation>
+  </wsdl:binding>
+
+  <wsdl:binding name="CCSCD1Soap12Binding" type="pi:CCSCD1PortType">
+      <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+      <wsdl:operation name="CCSCD1_ADD">
+          <soap:operation soapAction="urn:CCSCD1_ADD" style="document"/>
+          <wsdl:input>
+              <soap:body use="literal"/>
+          </wsdl:input>
+          <wsdl:output>
+              <soap:body use="literal"/>
+          </wsdl:output>
+          <wsdl:fault name="CCSCD1_ADDFault">
+              <soap:fault use="literal" name="CCSCD1_ADDFault"/>
+          </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="CCSCD1_CHG">
+          <soap:operation soapAction="urn:CCSCD1_CHG" style="document"/>
+          <wsdl:input>
+              <soap:body use="literal"/>
+          </wsdl:input>
+          <wsdl:output>
+              <soap:body use="literal"/>
+          </wsdl:output>
+          <wsdl:fault name="CCSCD1_CHGFault">
+              <soap:fault use="literal" name="CCSCD1_CHGFault"/>
+          </wsdl:fault>
+      </wsdl:operation>
+    <wsdl:operation name="CCSCD1_DEL">
+        <soap:operation soapAction="urn:CCSCD1_DEL" style="document"/>
+        <wsdl:input>
+            <soap:body use="literal"/>
+        </wsdl:input>
+        <wsdl:output>
+            <soap:body use="literal"/>
+        </wsdl:output>
+        <wsdl:fault name="CCSCD1_DELFault">
+          <soap:fault use="literal" name="CCSCD1_DELFault"/>
+        </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CCSCD1_QRY">
+        <soap:operation soapAction="urn:CCSCD1_QRY" style="document"/>
+        <wsdl:input>
+            <soap:body use="literal"/>
+        </wsdl:input>
+        <wsdl:output>
+            <soap:body use="literal"/>
+        </wsdl:output>
+        <wsdl:fault name="CCSCD1_QRYFault">
+          <soap:fault use="literal" name="CCSCD1_QRYFault"/>
+        </wsdl:fault>
+    </wsdl:operation>
+      <wsdl:operation name="CCSCD1_MSW">
+          <soap:operation soapAction="urn:CCSCD1_MSW" style="document"/>
+          <wsdl:input>
+              <soap:body use="literal"/>
+          </wsdl:input>
+          <wsdl:output>
+              <soap:body use="literal"/>
+          </wsdl:output>
+          <wsdl:fault name="CCSCD1_MSWFault">
+            <soap:fault use="literal" name="CCSCD1_MSWFault"/>
+          </wsdl:fault>
+      </wsdl:operation>
+  </wsdl:binding>
+
+
+
+  <wsdl:service name="CCSCD1">
+        <wsdl:port name="CCSCD1HttpSoap11Endpoint" binding="pi:CCSCD1Soap11Binding">
+            <soap:address location="http://SMP:2999"/>
+        </wsdl:port>
+        <wsdl:port name="CCSCD1HttpSoap12Endpoint" binding="pi:CCSCD1Soap12Binding">
+            <soap12:address location="http://SMP:3999"/>
+        </wsdl:port>
+  </wsdl:service>
+
+
+</wsdl:definitions>
